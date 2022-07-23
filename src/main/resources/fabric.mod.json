@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "registrylib",
+  "version": "${version}",
+  "name": "RegisteryLib",
+  "description": "it is a registery libary for my ease of work",
+  "authors": [
+    "CodeCraft"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/registrylib/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "me.codecraft.registerylib.client.RegisteryLibClient"
+    ],
+    "main": [
+      "me.codecraft.registerylib.RegisteryLib"
+    ]
+  },
+  "mixins": [
+    "registrylib.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.8",
+    "fabric": "*",
+    "minecraft": "1.19x"
+  }
+}
