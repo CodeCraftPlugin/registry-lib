@@ -1,6 +1,6 @@
-package me.codecraft.registerylib;
+package me.codecraft.registrylib;
 
-import me.codecraft.registerylib.utils.Registry;
+import me.codecraft.registrylib.utils.Registry;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

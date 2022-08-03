@@ -13,10 +13,10 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "me.codecraft.registerylib.client.RegisteryLibClient"
+      "me.codecraft.registrylib.client.RegisteryLibClient"
     ],
     "main": [
-      "me.codecraft.registerylib.RegisteryLib"
+      "me.codecraft.registrylib.RegisteryLib"
     ]
   },
   "mixins": [
@@ -25,6 +25,6 @@
   "depends": {
     "fabricloader": ">=0.14.8",
     "fabric": "*",
-    "minecraft": "1.19x"
+    "minecraft": "1.19.x"
   }
 }

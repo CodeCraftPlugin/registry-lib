@@ -1,12 +1,11 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "me.codecraft.soulreeper.mixin",
+  "package": "me.codecraft.registrylib",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
   ],
   "client": [
-    "SoulMixin"
   ],
   "injectors": {
     "defaultRequire": 1

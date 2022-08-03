@@ -71,7 +71,7 @@ publishing {
 	repositories {
 		maven {
 			// Choose whatever name you want
-			name = "RegistryLib"
+			name = "registry-lib"
 			// The url of the repository, where the artifacts will be published
 			url = "https://maven.pkg.github.com/CodeCraftPlugin/registry-lib"
 			credentials {
