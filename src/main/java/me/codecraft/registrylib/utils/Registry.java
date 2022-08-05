@@ -10,6 +10,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
+import org.slf4j.Logger;
 
 
 public class Registry {
@@ -47,8 +48,8 @@ public class Registry {
     private static FlowableFluid registerFluids(String name, String MOD_ID,FlowableFluid flowableFluid) {
         return net.minecraft.util.registry.Registry.register(net.minecraft.util.registry.Registry.FLUID, new Identifier(MOD_ID, name), flowableFluid);
     }
-    public static void registerRegistry(){
-        RegisteryLib.LOGGER.info("registered all the registry");
+    public static void registerRegistry(Logger logger){
+        logger.info("registered all the registry");
     }
 
     /**
