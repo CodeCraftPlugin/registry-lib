@@ -63,4 +63,8 @@ public class Registry {
     public static EntityType registerEntity(String name,String MOD_ID, EntityType entity){
         return net.minecraft.util.registry.Registry.register(net.minecraft.util.registry.Registry.ENTITY_TYPE, new Identifier(MOD_ID,name),entity);
     }
+    //write main method to test the code
+    public static void main(String[] args) {
+        System.out.printf("Hello World");
+    }
 }
