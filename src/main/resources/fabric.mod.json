@@ -13,10 +13,10 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "me.codecraft.registrylib.client.RegisteryLibClient"
+      "io.github.codecraftplugin.registrylib.client.RegisteryLibClient"
     ],
     "main": [
-      "me.codecraft.registrylib.RegisteryLib"
+      "io.github.codecraftplugin.registrylib.RegisteryLib"
     ]
   },
   "mixins": [

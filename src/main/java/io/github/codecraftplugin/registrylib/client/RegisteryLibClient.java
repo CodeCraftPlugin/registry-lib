@@ -1,4 +1,4 @@
-package me.codecraft.registrylib.client;
+package io.github.codecraftplugin.registrylib.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;

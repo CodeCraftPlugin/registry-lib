@@ -1,4 +1,5 @@
-# Fabric Example Mod
+# Registry Lib
+[![](https://jitpack.io/v/CodeCraftPlugin/registry-lib.svg)](https://jitpack.io/#CodeCraftPlugin/registry-lib)
 
 ## Setup
 
@@ -7,3 +8,6 @@ For setup instructions please see the [fabric wiki page](https://fabricmc.net/wi
 ## License
 
 This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+
+
+
