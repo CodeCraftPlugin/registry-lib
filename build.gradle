@@ -1,6 +1,8 @@
 plugins {
 	id 'fabric-loom' version '1.0-SNAPSHOT'
 	id 'maven-publish'
+	id 'java'
+	id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
 }
 
 version = project.mod_version
@@ -32,6 +34,7 @@ processResources {
 		expand "version": project.version
 	}
 }
+
 
 def targetJavaVersion = 17
 tasks.withType(JavaCompile).configureEach {
@@ -65,14 +68,71 @@ jar {
 }
 
 // configure the maven publication
-publishing {
-	repositories {
+def hasSigningKey = project.hasProperty("signingKeyId") || project.hasProperty("signingKey")
+if(hasSigningKey) {
+	sign(project)
+}
+void sign(Project project) {
+	project.signing {
+		required { project.gradle.taskGraph.hasTask("required") }
+		def signingKeyId = project.findProperty("signingKeyId")
+		def signingKey = project.findProperty("signingKey")
+		def signingPassword = project.findProperty("signingPassword")
+		if (signingKeyId) {
+			useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+		} else if (signingKey) {
+			useInMemoryPgpKeys(signingKey, signingPassword)
+		}
+		sign publishing.publications.maven
 	}
-	publications {
-		maven(MavenPublication) {
-			from components.java
+}
+project.plugins.withType(MavenPublishPlugin).all {
+	PublishingExtension publishing = project.extensions.getByType(PublishingExtension)
+	publishing.publications.withType(MavenPublication).all { mavenPublication ->
+		mavenPublication.pom {
+			name = "${project.group}:${project.name}"
+			description = name
+			url = "https://github.com/rwinch/gradle-publish-ossrh-sample"
+			licenses {
+				license {
+					name = "The Apache License, Version 2.0"
+					url = "https://www.apache.org/licenses/LICENSE-2.0"
+				}
+			}
+			developers {
+				developer {
+					id = "rwinch"
+					name = "Rob Winch"
+					email = "rwinch@noreply.github.com"
+				}
+			}
+			scm {
+				connection = "scm:git:https://github.com/rwinch/gradle-publish-ossrh-sample"
+				developerConnection = "scm:git:ssh://github.com/rwinch/gradle-publish-ossrh-sample.git"
+				url = "https://github.com/rwinch/gradle-publish-ossrh-sample"
+			}
 		}
 	}
 }
+nexusPublishing {
+	repositories {
+//		sonatype()    //sonatypeUsername and sonatypePassword properties are used automatically
 
-
+		// OR, if you registered with Sonatype after 24 February 2021
+		 sonatype {
+			    nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+			    snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+		 }
+	}
+	// these are not strictly required. The default timeouts are set to 1 minute. But Sonatype can be really slow.
+	// If you get the error "java.net.SocketTimeoutException: timeout", these lines will help.
+	connectTimeout = Duration.ofMinutes(3)
+	clientTimeout = Duration.ofMinutes(3)
+}
+publishing {
+	publications {
+		maven(MavenPublication) {
+			from(components.java)
+		}
+	}
+}
