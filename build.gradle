@@ -84,7 +84,7 @@ if(hasSigningKey) {
 }
 void sign(Project project) {
     project.signing {
-        required { project.gradle.taskGraph.hasTask("publish") }
+        required { project.gradle.taskGraph.hasTask("required") }
         def signingKeyId = project.findProperty("signingKeyId")
         def signingKey = project.findProperty("signingKey")
         def signingPassword = project.findProperty("signingPassword")
@@ -96,7 +96,6 @@ void sign(Project project) {
         sign publishing.publications.maven
     }
 }
-
 project.plugins.withType(MavenPublishPlugin).all {
     PublishingExtension publishing = project.extensions.getByType(PublishingExtension)
     publishing.publications.withType(MavenPublication).all { mavenPublication ->
@@ -106,8 +105,8 @@ project.plugins.withType(MavenPublishPlugin).all {
             url = "https://github.com/rwinch/gradle-publish-ossrh-sample"
             licenses {
                 license {
-                    name = "The Apache License, Version 2.0"
-                    url = "https://www.apache.org/licenses/LICENSE-2.0"
+                    name = "MIT License"
+                    url = "https://opensource.org/licenses/MIT"
                 }
             }
             developers {
