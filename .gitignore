@@ -5,6 +5,7 @@ build/
 out/
 classes/
 
+private.pgp
 # eclipse
 
 *.launch
