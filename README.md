@@ -1,13 +1,33 @@
 # Registry Lib
-[![](https://jitpack.io/v/CodeCraftPlugin/registry-lib.svg)](https://jitpack.io/#CodeCraftPlugin/registry-lib)
+[![](readmefiles/maven-registry-lib.svg)](https://repo.maven.apache.org/maven2/io/github/codecraftplugin/)
 
 ## Setup
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+## Installation
 
+In build.gradle
+
+```groovy
+dependencies
+    .......
+    modImplementation "io.github.codecraftplugin:registry-lib:${project.registery_lib_version}"
+
+}
+```
+In the gradle.properties of your project
+```properties
+registery_lib_version = 1.19.2-1.0.1
+```
+in the repositories section of build.gradle
+```groovy
+repositories {
+    .....
+
+    mavenCentral()
+}
+```
 ## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+This Library is under MIT License
 
 
 

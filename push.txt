@@ -1,8 +1,9 @@
 plugins {
     id 'fabric-loom' version '1.0-SNAPSHOT'
     id 'maven-publish'
-    id 'signing'
-    id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
+    id "java"
+    id "signing"
+    id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
 }
 
 version = project.mod_version
@@ -66,24 +67,68 @@ jar {
     }
 }
 
-signing {
-    sign publishing.publications
-}
 // configure the maven publication
-
 publishing {
+    repositories {
+    }
     publications {
         maven(MavenPublication) {
             from components.java
-
         }
     }
 }
 
+def hasSigningKey = project.hasProperty("signingKeyId") || project.hasProperty("signingKey")
+if(hasSigningKey) {
+    sign(project)
+}
+void sign(Project project) {
+    project.signing {
+        required { project.gradle.taskGraph.hasTask("required") }
+        def signingKeyId = project.findProperty("signingKeyId")
+        def signingKey = project.findProperty("signingKey")
+        def signingPassword = project.findProperty("signingPassword")
+        if (signingKeyId) {
+            useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+        } else if (signingKey) {
+            useInMemoryPgpKeys(signingKey, signingPassword)
+        }
+        sign publishing.publications.maven
+    }
+}
+project.plugins.withType(MavenPublishPlugin).all {
+    PublishingExtension publishing = project.extensions.getByType(PublishingExtension)
+    publishing.publications.withType(MavenPublication).all { mavenPublication ->
+        mavenPublication.pom {
+            name = "${project.group}:${project.name}"
+            description = name
+            url = "https://github.com/rwinch/gradle-publish-ossrh-sample"
+            licenses {
+                license {
+                    name = "MIT License"
+                    url = "https://opensource.org/licenses/MIT"
+                }
+            }
+            developers {
+                developer {
+                    id = "codecraft07"
+                    name = "CodeCraft07"
+                    email = "behl8948@gmail.com"
+                }
+            }
+            scm {
+                connection = "scm:git:https://github.com/rwinch/registry-lib"
+                developerConnection = "scm:git:ssh://github.com/codecraftplugin/registry-lib.git"
+                url = "https://github.com/codecraftplugin/registry-lib"
+            }
+        }
+    }
+}
 nexusPublishing {
     repositories {
 //        sonatype()    //sonatypeUsername and sonatypePassword properties are used automatically
 
+        // OR, if you registered with Sonatype after 24 February 2021
          sonatype {
         	    nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
         	    snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
@@ -94,32 +139,18 @@ nexusPublishing {
     connectTimeout = Duration.ofMinutes(3)
     clientTimeout = Duration.ofMinutes(3)
 }
-project.plugins.withType(MavenPublishPlugin).all {
-    PublishingExtension publishing = project.extensions.getByType(PublishingExtension)
-    publishing.publications.withType(MavenPublication).all { mavenPublication ->
-        mavenPublication.pom {
-            name = "${project.group}:${project.name}"
-            description = name
-            url = "https://github.com/codecraftplugin/registry-lib"
-            licenses {
-                license {
-                    name = "MIT License"
-                    url = "https://opensource.org/licenses/MIT"
-                }
-            }
-            developers {
-                developer {
-                    id = "codecraftplugin"
-                    name = "CodeCraft"
-                }
-            }
-            scm {
-                connection = "scm:git:https://github.com/codecraftplugin/registry-lib"
-                developerConnection = "scm:git:ssh://github.com/codecraftplugin/registry-lib.git"
-                url = "https://github.com/codecraftplugin/registry-lib"
-            }
-        }
+ext.genOutputDir = file("$buildDir/generated-resources")
+
+task generateVersionTxt()  {
+    ext.outputFile = file("$genOutputDir/version.txt")
+    outputs.file(outputFile)
+    doLast {
+        outputFile.text = """GroupId: ${project.group}
+Name: ${project.name}
+Version: $version
+Build-time: ${java.time.LocalDateTime.now()}
+"""
     }
 }
 
-
+sourceSets.main.output.dir genOutputDir, builtBy: generateVersionTxt
