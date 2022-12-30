@@ -1,8 +1,6 @@
 # Registry Lib
 [![](readmefiles/maven-registry-lib.svg)](https://repo.maven.apache.org/maven2/io/github/codecraftplugin/)
 
-## Setup
-
 ## Installation
 
 In build.gradle
