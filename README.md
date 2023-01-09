@@ -1,5 +1,5 @@
 # Registry Lib
-[![](readmefiles/maven-registry-lib.svg)](https://repo.maven.apache.org/maven2/io/github/codecraftplugin/)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.codecraftplugin/registry-lib?style=plastic)
 
 ## Installation
 
