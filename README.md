@@ -1,5 +1,6 @@
 # Registry Lib
-![Maven Central](https://img.shields.io/maven-central/v/io.github.codecraftplugin/registry-lib?style=plastic)
+![https://search.maven.org/artifact/io.github.codecraftplugin/registry-lib/1.19.2-1.0.1/jar](https://img.shields.io/maven-central/v/io.github.codecraftplugin/registry-lib?style=for-the-badge)
+![](https://img.shields.io/badge/CodeCraft-Just_a_miecraft_coder-aqua?style=for-the-badge)
 
 ## Installation
 
