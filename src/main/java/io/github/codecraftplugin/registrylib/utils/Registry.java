@@ -33,8 +33,10 @@ public class Registry {
         return net.minecraft.registry.Registry.register(Registries.BLOCK,new Identifier(MOD_ID,name),block);
     }
     public static Item registerBlockItem(String name, String MOD_ID, Block block, ItemGroup itemGroup) {
-        return net.minecraft.registry.Registry.register(Registries.ITEM,new Identifier(MOD_ID,name),
+        Item blockItem =  net.minecraft.registry.Registry.register(Registries.ITEM,new Identifier(MOD_ID,name),
                 new BlockItem(block,new FabricItemSettings()));
+        addToItemGroup(itemGroup,blockItem);
+        return blockItem;
     }
     //Adds Group to the items created
 
