@@ -7,11 +7,14 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityType.EntityFactory;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 
 public class EntityRegistryBuilder<E extends Entity> {
     private static Identifier name;
@@ -85,13 +88,15 @@ public class EntityRegistryBuilder<E extends Entity> {
                     .forceTrackedVelocityUpdates(this.alwaysUpdateVelocity).build();
         }
 
-        EntityType<E> entityType = Registry.register(Registry.ENTITY_TYPE, name, entityBuilder.build(name.getPath()));
+        EntityType<E> entityType = Registry.register(Registries.ENTITY_TYPE, name, entityBuilder.build(name.getPath()));
 
         if (this.hasEgg) {
-            io.github.codecraftplugin.registrylib.utils.Registry.registerEgg(
+            Item spawn_egg  = io.github.codecraftplugin.registrylib.utils.Registry.registerEgg(
                     new SpawnEggItem((EntityType<? extends MobEntity>) entityType, this.primaryColor, this.secondaryColor,
-                            (new Settings()).group(ItemGroup.MISC)),
+                            (new Settings())),
                     new Identifier(name.getNamespace(), String.format("%s_spawn_egg", name.getPath())));
+
+            io.github.codecraftplugin.registrylib.utils.Registry.addToItemGroup(ItemGroups.SPAWN_EGGS,spawn_egg);
         }
 
         return entityType;

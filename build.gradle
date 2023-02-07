@@ -122,4 +122,6 @@ project.plugins.withType(MavenPublishPlugin).all {
     }
 }
 
-
+exec {
+    commandLine "echo", "##[set-output name=version;]${project.version}";
+}
