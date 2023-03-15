@@ -15,7 +15,7 @@ dependencies{
 ```
 In the gradle.properties of your project
 ```properties
-registery_lib_version = 1.19.2-1.0.1
+registery_lib_version = 1.19.4-1.0.0
 ```
 in the repositories section of build.gradle
 ```groovy
