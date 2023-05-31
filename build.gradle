@@ -94,6 +94,17 @@ nexusPublishing {
     connectTimeout = Duration.ofMinutes(3)
     clientTimeout = Duration.ofMinutes(3)
 }
+publishing {
+    repositories {
+        maven {
+            name = "local"
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            def releasesRepoUrl = "$buildDir/repos/releases"
+            def snapshotsRepoUrl = "$buildDir/repos/snapshots"
+            url = version.endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
+}
 project.plugins.withType(MavenPublishPlugin).all {
     PublishingExtension publishing = project.extensions.getByType(PublishingExtension)
     publishing.publications.withType(MavenPublication).all { mavenPublication ->
@@ -122,6 +133,6 @@ project.plugins.withType(MavenPublishPlugin).all {
     }
 }
 
-exec {
-    commandLine "echo", "##[set-output name=version;]${project.version}";
-}
+ exec {
+     commandLine "echo", "##[set-output name=version;]${project.version}";
+ }
