@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "registrylib",
   "version": "${version}",
-  "name": "RegisteryLib",
+  "name": "Registery Lib",
   "description": "it is a registery libary for my ease of work",
   "authors": [
     "CodeCraft"

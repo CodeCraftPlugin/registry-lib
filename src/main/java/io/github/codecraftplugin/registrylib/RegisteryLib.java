@@ -13,8 +13,5 @@ public class RegisteryLib implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     @Override
     public void onInitialize() {
-        Item itemgroupicon = Registry.registerItems("itemgroupicon",MOD_ID,new Item(new FabricItemSettings()), ItemGroups.TOOLS);
-        ItemGroup testitemgroup = Registry.registerItemGroup("testitemgroup",MOD_ID,()->new ItemStack(itemgroupicon));
-        Item registeritem = Registry.registerItems("registeritem",MOD_ID,new Item(new FabricItemSettings()), testitemgroup);
     }
 }

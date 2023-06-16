@@ -88,4 +88,65 @@ public class RegistryRecipeProvider {
                 FabricRecipeProvider.conditionsFromItem(input))
                 .group("sword").offerTo(exporter);
     }
+
+    /**
+     * for making a Chestplate recipe
+     * @param exporter the expoter
+     * @param output the output that is the Chestplate
+     * @param input the material the Chestplate is made up of (wood, stone, iron, gold, diamond, any modded material)
+     */
+    public static void offerChestplateRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input)
+                .pattern("# #")
+                .pattern("###")
+                .pattern("###")
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .group("chestplate").offerTo(exporter);
+    }
+    /**
+     * for making a Boots recipe
+     * @param exporter the exporter
+     * @param output the output that is the Boots
+     * @param input the material the Boots is made up of (wood, stone, iron, gold, diamond, any modded material)
+     */
+    public static void offerBootsRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input)
+                .pattern("   ")
+                .pattern("# #")
+                .pattern("# #")
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .group("boots").offerTo(exporter);
+    }
+    /**
+     * for making a Leggings recipe
+     * @param exporter the exporter
+     * @param output the output that is the Leggings
+     * @param input the material the Leggings is made up of (wood, stone, iron, gold, diamond, any modded material)
+     */
+    public static void offerLeggingsRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input)
+                .pattern("###")
+                .pattern("# #")
+                .pattern("# #")
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .group("leggings").offerTo(exporter);
+    }
+    /**
+     * for making a Helmet recipe
+     * @param exporter the exporter
+     * @param output the output that is the Helmet
+     * @param input the material the Helmet is made up of (wood, stone, iron, gold, diamond, any modded material)
+     */
+    public static void offerHelmetRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input)
+                .pattern("###")
+                .pattern("# #")
+                .pattern("   ")
+                .criterion(FabricRecipeProvider.hasItem(input),
+                        FabricRecipeProvider.conditionsFromItem(input))
+                .group("helmet").offerTo(exporter);
+    }
 }
