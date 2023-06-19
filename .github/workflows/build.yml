@@ -40,5 +40,5 @@ jobs:
           game_endpoint: "minecraft"
           relations: "fabric-api:requiredDependency,modmenu:optionalDependency"
           token: ${{ secrets.CF_API_TOKEN }}
-          game_version: "Minecraft 1.19:1.19.4,Java 17,Fabric,Client,Server"
+          game_versions: "Minecraft 1.20:1.20.1,Java 17,Fabric,Client,Server"
           project_id: "776484"

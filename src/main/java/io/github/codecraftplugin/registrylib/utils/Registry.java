@@ -14,6 +14,8 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -31,7 +33,7 @@ public class Registry {
      * @param itemGroup the item group
      * @return the item will be created and returned
      */
-    public static Item registerItems(String name, String MOD_ID, Item item, ItemGroup itemGroup){
+    public static Item registerItems(String name, String MOD_ID, Item item, RegistryKey<ItemGroup> itemGroup){
         Item createditem = net.minecraft.registry.Registry.register(Registries.ITEM,new Identifier(MOD_ID,name),item);
         addToItemGroup(itemGroup,createditem);
         return createditem;
@@ -44,7 +46,7 @@ public class Registry {
      * @param block      the block settings
      * @return the block and the block item  will be created and returned
      */
-    public static Block registerBlocks(String name, String MOD_ID, Block block, ItemGroup itemGroup){
+    public static Block registerBlocks(String name, String MOD_ID, Block block, RegistryKey<ItemGroup> itemGroup){
         registerBlockItem(name,MOD_ID,block,itemGroup);
         return net.minecraft.registry.Registry.register(Registries.BLOCK,new Identifier(MOD_ID,name),block);
     }
@@ -57,7 +59,7 @@ public class Registry {
      * @param itemGroup the item group that the block item will be shown
      * @return the block item without creating the block (for crops)
      */
-    public static Item registerBlockItem(String name, String MOD_ID, Block block, ItemGroup itemGroup) {
+    public static Item registerBlockItem(String name, String MOD_ID, Block block, RegistryKey<ItemGroup> itemGroup) {
         Item blockItem =  net.minecraft.registry.Registry.register(Registries.ITEM,new Identifier(MOD_ID,name),
                 new BlockItem(block,new FabricItemSettings()));
         addToItemGroup(itemGroup,blockItem);
@@ -71,9 +73,13 @@ public class Registry {
      * @param itemStack the item that you want to use as the icon as an item stack e.g. new ItemStack(Items.APPLE);
      * @return the item group
      */
-    public static ItemGroup registerItemGroup(String name, String MOD_ID, Supplier<ItemStack> itemStack){
-        String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-        return FabricItemGroup.builder(new Identifier(MOD_ID,name)).displayName(Text.literal(formattedName)).icon(itemStack).build();
+    public static RegistryKey<ItemGroup> registerItemGroup(String name, String MOD_ID, Supplier<ItemStack> itemStack){
+        String displayName = formatString(name);
+        RegistryKey<ItemGroup> customItemGroup = RegistryKey.of(RegistryKeys.ITEM_GROUP,new Identifier(MOD_ID,name));
+        net.minecraft.registry.Registry.register(Registries.ITEM_GROUP, customItemGroup, FabricItemGroup.builder()
+                .icon(itemStack).displayName(Text.literal(displayName)).build());
+
+        return customItemGroup;
     }
     //Adds Group to the items created
 
@@ -82,7 +88,7 @@ public class Registry {
      * @param group reference of the item Group
      * @param item reference of the item
      */
-    public static void addToItemGroup(ItemGroup group, Item item) {
+    public static void addToItemGroup(RegistryKey<ItemGroup> group, Item item) {
         ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.add(item));
     }
     /**
@@ -175,5 +181,19 @@ public class Registry {
         }
         return null;
     }
-    
+
+    private static String formatString(String input) {
+        String[] words = input.split("_");
+        StringBuilder result = new StringBuilder();
+
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                String formattedWord = word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+                result.append(formattedWord).append(" ");
+            }
+        }
+
+        return result.toString().trim();
+    }
+
 }
