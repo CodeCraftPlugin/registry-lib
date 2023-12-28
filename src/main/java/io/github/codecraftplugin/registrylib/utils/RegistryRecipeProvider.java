@@ -1,6 +1,7 @@
 package io.github.codecraftplugin.registrylib.utils;
 
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.ItemConvertible;
@@ -18,7 +19,7 @@ public class RegistryRecipeProvider {
      * @param input the material the axe is made up of (wood, stone, iron, gold, diamond, any modded material)
      */
 
-    public static void offerAxeRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+    public static void offerAxeRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible input) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input).input('S', Items.STICK)
                 .pattern("## ")
                 .pattern("#S ")
@@ -33,7 +34,7 @@ public class RegistryRecipeProvider {
      * @param output the output that is the pickaxe
      * @param input the material the pickaxe is made up of (wood, stone, iron, gold, diamond, any modded material)
      */
-    public static void offerPickaxeRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+    public static void offerPickaxeRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible input) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input).input('S', Items.STICK)
                 .pattern("###")
                 .pattern(" S ").pattern(" S ")
@@ -48,7 +49,7 @@ public class RegistryRecipeProvider {
      * @param input the material the Hoe is made up of (wood, stone, iron, gold, diamond, any modded material)
      */
 
-    public static void offerHoeRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+    public static void offerHoeRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible input) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input).input('S', Items.STICK)
                 .pattern("## ")
                 .pattern(" S ")
@@ -63,7 +64,7 @@ public class RegistryRecipeProvider {
      * @param input the material the Shovel is made up of (wood, stone, iron, gold, diamond, any modded material)
      */
 
-    public static void offerShovelRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+    public static void offerShovelRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible input) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input).input('S', Items.STICK)
                 .pattern(" # ")
                 .pattern(" S ")
@@ -79,7 +80,7 @@ public class RegistryRecipeProvider {
      * @param output the output that is the Sword
      * @param input the material the Sword is made up of (wood, stone, iron, gold, diamond, any modded material)
      */
-    public static void offerSwordRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+    public static void offerSwordRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible input) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input).input('S', Items.STICK)
                 .pattern(" # ")
                 .pattern(" # ")
@@ -95,7 +96,7 @@ public class RegistryRecipeProvider {
      * @param output the output that is the Chestplate
      * @param input the material the Chestplate is made up of (wood, stone, iron, gold, diamond, any modded material)
      */
-    public static void offerChestplateRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+    public static void offerChestplateRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible input) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input)
                 .pattern("# #")
                 .pattern("###")
@@ -110,7 +111,7 @@ public class RegistryRecipeProvider {
      * @param output the output that is the Boots
      * @param input the material the Boots is made up of (wood, stone, iron, gold, diamond, any modded material)
      */
-    public static void offerBootsRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+    public static void offerBootsRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible input) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input)
                 .pattern("   ")
                 .pattern("# #")
@@ -125,7 +126,7 @@ public class RegistryRecipeProvider {
      * @param output the output that is the Leggings
      * @param input the material the Leggings is made up of (wood, stone, iron, gold, diamond, any modded material)
      */
-    public static void offerLeggingsRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+    public static void offerLeggingsRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible input) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input)
                 .pattern("###")
                 .pattern("# #")
@@ -140,7 +141,7 @@ public class RegistryRecipeProvider {
      * @param output the output that is the Helmet
      * @param input the material the Helmet is made up of (wood, stone, iron, gold, diamond, any modded material)
      */
-    public static void offerHelmetRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, ItemConvertible input) {
+    public static void offerHelmetRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible input) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, output).input(Character.valueOf('#'), input)
                 .pattern("###")
                 .pattern("# #")
