@@ -99,8 +99,8 @@ publishing {
         maven {
             name = "local"
             // change URLs to point to your repos, e.g. http://my.org/repo
-            def releasesRepoUrl = "project.layout.buildDirectory.dir/repos/releases"
-            def snapshotsRepoUrl = "project.layout.buildDirectory.dir/repos/snapshots"
+            def releasesRepoUrl = "${rootProject.buildDir}/repos/releases"
+            def snapshotsRepoUrl = "${rootProject.buildDir}/repos/snapshots"
             url = version.endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl
         }
     }
