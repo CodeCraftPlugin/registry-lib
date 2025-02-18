@@ -1,6 +1,6 @@
 package io.github.codecraftplugin.registrylib.utils;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+//import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -34,7 +34,7 @@ public class Registry {
      * @return the item will be created and returned
      */
     public static Item registerItems(String name, String MOD_ID, Item item, RegistryKey<ItemGroup> itemGroup){
-        Item createditem = net.minecraft.registry.Registry.register(Registries.ITEM,new Identifier(MOD_ID,name),item);
+        Item createditem = net.minecraft.registry.Registry.register(Registries.ITEM,Identifier.of(MOD_ID,name),item);
         addToItemGroup(itemGroup,createditem);
         return createditem;
     }
@@ -48,7 +48,7 @@ public class Registry {
      */
     public static Block registerBlocks(String name, String MOD_ID, Block block, RegistryKey<ItemGroup> itemGroup){
         registerBlockItem(name,MOD_ID,block,itemGroup);
-        return net.minecraft.registry.Registry.register(Registries.BLOCK,new Identifier(MOD_ID,name),block);
+        return net.minecraft.registry.Registry.register(Registries.BLOCK,Identifier.of(MOD_ID,name),block);
     }
 
     /**
@@ -60,8 +60,8 @@ public class Registry {
      * @return the block item without creating the block (for crops)
      */
     public static Item registerBlockItem(String name, String MOD_ID, Block block, RegistryKey<ItemGroup> itemGroup) {
-        Item blockItem =  net.minecraft.registry.Registry.register(Registries.ITEM,new Identifier(MOD_ID,name),
-                new BlockItem(block,new FabricItemSettings()));
+        Item blockItem =  net.minecraft.registry.Registry.register(Registries.ITEM,Identifier.of(MOD_ID,name),
+                new BlockItem(block,new Item.Settings()));
         addToItemGroup(itemGroup,blockItem);
         return blockItem;
     }
@@ -75,7 +75,7 @@ public class Registry {
      */
     public static RegistryKey<ItemGroup> registerItemGroup(String name, String MOD_ID, Supplier<ItemStack> itemStack){
         String displayName = formatString(name);
-        RegistryKey<ItemGroup> customItemGroup = RegistryKey.of(RegistryKeys.ITEM_GROUP,new Identifier(MOD_ID,name));
+        RegistryKey<ItemGroup> customItemGroup = RegistryKey.of(RegistryKeys.ITEM_GROUP,Identifier.of(MOD_ID,name));
         net.minecraft.registry.Registry.register(Registries.ITEM_GROUP, customItemGroup, FabricItemGroup.builder()
                 .icon(itemStack).displayName(Text.literal(displayName)).build());
 
@@ -101,7 +101,7 @@ public class Registry {
      */
     public static Block registerBlocksWithoutBlockItem(String name, String MOD_ID, Block block){
         //register the block without block items, so you have to register it manually using registerItems
-        return net.minecraft.registry.Registry.register(Registries.BLOCK,new Identifier(MOD_ID,name),block);
+        return net.minecraft.registry.Registry.register(Registries.BLOCK,Identifier.of(MOD_ID,name),block);
     }
 
     /**
@@ -113,7 +113,7 @@ public class Registry {
      * @return the enchantment
      */
     public static Enchantment registerEnchantments(String name, Enchantment enchantment, String MOD_ID){
-        return net.minecraft.registry.Registry.register(Registries.ENCHANTMENT, new Identifier(MOD_ID, name),enchantment);
+        return net.minecraft.registry.Registry.register(Registries., Identifier.of(MOD_ID, name),enchantment);
 
     }
 
@@ -125,7 +125,7 @@ public class Registry {
      * @return
      */
     private static FlowableFluid registerFluids(String name, String MOD_ID,FlowableFluid flowableFluid) {
-        return net.minecraft.registry.Registry.register(Registries.FLUID, new Identifier(MOD_ID, name), flowableFluid);
+        return net.minecraft.registry.Registry.register(Registries.FLUID, Identifier.of(MOD_ID, name), flowableFluid);
     }
     public static void registerRegistry(Logger logger){
         logger.info("registered all the registry");
@@ -140,7 +140,7 @@ public class Registry {
      * @return The Entity
      */
     public static EntityType registerEntity(String name,String MOD_ID, EntityType entity){
-        return net.minecraft.registry.Registry.register(Registries.ENTITY_TYPE, new Identifier(MOD_ID,name),entity);
+        return net.minecraft.registry.Registry.register(Registries.ENTITY_TYPE, Identifier.of(MOD_ID,name),entity);
     }
     //register status effects
 
@@ -153,7 +153,7 @@ public class Registry {
      * @return the status effect
      */
     public static StatusEffect registerStatusEffects(String name,String MOD_ID, StatusEffect statusEffect){
-        return net.minecraft.registry.Registry.register(Registries.STATUS_EFFECT, new Identifier(MOD_ID, name), statusEffect);
+        return net.minecraft.registry.Registry.register(Registries.STATUS_EFFECT, Identifier.of(MOD_ID, name), statusEffect);
     }
     //register entities with spawn egg
     
@@ -161,7 +161,7 @@ public class Registry {
                                                                float width, float height, SpawnGroup group, String MOD_ID) {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             String name = entityClass.getSimpleName().toLowerCase();
-            return EntityRegistryBuilder.<T>createBuilder(new Identifier(MOD_ID, name)).entity(entity)
+            return EntityRegistryBuilder.<T>createBuilder(Identifier.of(MOD_ID, name)).entity(entity)
                     .category(group).dimensions(EntityDimensions.changing(width, height)).build();
         }
         return null;
